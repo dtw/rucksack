@@ -1,0 +1,4 @@
+rucksack
+========
+
+Rucksack is a simple script and daemon designed for Arch Linux. Rucksack allows the system administrator to set up a unified package cache on individual workstations, exploiting unionfs to combine a remote package cache and a local package cache. By avoiding repeated downloads of core packages rucksack helps to reduce bandwidth consumption and network traffic. The remote cache can reside on any machine within the network, utilizing a variety of shared file systems, including NFS.
