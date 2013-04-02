@@ -1,0 +1,36 @@
+#!/bin/sh
+
+. /etc/rc.conf
+. /etc/rc.d/functions
+
+. /etc/conf.d/rucksack
+
+case "$1" in
+  start)
+    stat_busy "Starting rucksack"
+    /usr/bin/rucksack -start $l_cache $r_cache $t_cache &> /dev/null
+    if [ $? -gt 0 ]; then
+      stat_fail
+    else
+      add_daemon rucksack
+      stat_done
+    fi
+    ;;
+  stop)
+    stat_busy "Stopping rucksack"
+    /usr/bin/rucksack -stop $l_cache $r_cache $t_cache &> /dev/null
+    if [ $? -gt 0 ]; then
+      stat_fail
+    else
+      rm_daemon rucksack
+      stat_done
+    fi
+    ;;
+  restart)
+    $0 stop
+    sleep 3
+    $0 start
+    ;;
+  *)
+    echo "usage: $0 {start|stop|restart}"  
+esac
